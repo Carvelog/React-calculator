@@ -5,10 +5,10 @@ const Display = (props) => {
   return (
     <div className={styles.display}>
       <div className={styles['operation-digits']}>
-        {props.formula}
+        {props.formula.replace(',', '')}
       </div>
       <div className={styles['operation-result']}>
-        {props.result.result}
+        {props.result}
       </div>
     </div>
   )
