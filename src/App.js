@@ -1,10 +1,10 @@
-import './App.css';
+import './App.css'
 
-import Container from './components/Container/Container';
-import Display from './components/Display/Display';
-import Button from './components/Button/Button';
+import Container from './components/Container/Container'
+import Display from './components/Display/Display'
+import Button from './components/Button/Button'
 import ButtonContainer from './components/ButtonContainer/ButtonContainer'
-import { useState } from 'react';
+import { useState } from 'react'
 
 import * as CalculatorHelper from './helper/helper'
 
@@ -18,27 +18,39 @@ function App() {
   const [result, setResult] = useState(0)
 
   const onDigit = (e) => {
-    const digit = e.target.value;
+    const digit = e.target.value
 
-    if (afterCalculation) {
-      setInput(digit)
-      setAfterCalculation(false)
-    } else if (input === 0) {
-      setInput(digit)
-    } else if (CalculatorHelper.isNotNumber(input)) {
-      setInput(digit)
-      setFormula(formula.concat(input))
-    } else {
-      setInput(input.concat(digit))
+    if(input.toString().length < 16 ){
+      if (afterCalculation) {
+        setInput(digit)
+        setAfterCalculation(false)
+      } else if (input === 0) {
+        setInput(digit)
+      } else if (CalculatorHelper.isNotNumber(input)) {
+        setInput(digit)
+        setFormula(formula.concat(input))
+      } else {
+        setInput(input.concat(digit))
+      }
     }
   }
 
-  const onDecimal = () => {
+  const onDecimal = (e) => {
+    const decimal = e.target.value
 
+    if (afterCalculation) {
+      setInput(`0${decimal}`)
+      setAfterCalculation(false)
+    } else if (CalculatorHelper.isNotNumber(input)) {
+      setInput(`0${decimal}`)
+      setFormula(formula.concat(input))
+    } else if (!input.includes(decimal)) {
+      setInput(input.concat(decimal))
+    }
   }
 
   const onOperator = (e) => {
-    const operator = e.target.value;
+    const operator = e.target.value
 
     if (CalculatorHelper.isOperator(input)) {
       setInput(operator)
@@ -51,7 +63,7 @@ function App() {
   }
   
   const onChangeSymb = () => {
-
+    setInput(input*-1)
   }
 
   const onClear = () => {
@@ -62,7 +74,19 @@ function App() {
   }
 
   const onEqual = () => {
-   
+    const finalFormula = formula.concat(input)
+    const result = CalculatorHelper.evaluate(finalFormula)
+
+    if (!Number.isNaN(result)) {
+      setResult({
+        formula: finalFormula,
+        result: result
+      })
+
+      setInput(result)
+      setFormula([])
+      setAfterCalculation(true)
+    }
   }
 
   return (
@@ -75,26 +99,27 @@ function App() {
               <Button 
               key={i}
               onClick={
-                btn === 'C'
-                ? onClear
-                : btn === "."
-                ? onDecimal
-                : btn === '+/-'
-                ? onChangeSymb
-                : btn === '/' || btn === 'x' || btn === '-' || btn === '+'
-                ? onOperator
-                : btn === '='
-                ? onEqual
-                : onDigit
+                btn === "C"
+                  ? onClear
+                  : btn === "+/-"
+                  ? onChangeSymb
+                  : btn === "="
+                  ? onEqual
+                  : btn === "/" || btn === "x" || btn === "-" || btn === "+"
+                  ? onOperator
+                  : btn === "."
+                  ? onDecimal
+                  : onDigit
               }
+              className={btn === '=' ? 'equal' : btn === 'C' ? 'clear' : ''}
               value={btn}>{btn}
               </Button>
           )})}
         </ButtonContainer>
       </Container>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
 

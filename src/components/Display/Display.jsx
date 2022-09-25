@@ -8,7 +8,7 @@ const Display = (props) => {
         {props.formula.replace(',', '')}
       </div>
       <div className={styles['operation-result']}>
-        {props.result}
+        {props.result.result}
       </div>
     </div>
   )
