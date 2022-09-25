@@ -1,0 +1,24 @@
+.display {
+  width: 85%;
+  height: 90px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  
+  border: 2px solid black;
+  border-radius: 6px;
+
+  margin: 30px;
+  margin-bottom: 0;
+}
+
+.operation-digits {
+  padding: 5px 5px 2.5px 5px;
+  font-size: 1.25em;
+}
+
+.operation-result {
+  padding: 2.5px 5px 5px 5px;
+  font-size: 2em;
+}

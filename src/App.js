@@ -1,25 +1,68 @@
-import logo from './logo.svg';
 import './App.css';
 
+import Container from './components/Container/Container';
+import Display from './components/Display/Display';
+import Button from './components/Button/Button';
+import ButtonContainer from './components/ButtonContainer/ButtonContainer'
+
+const BUTTONS = ['C', '+/-', '/', '7', '8', '9', 'x', '4','5', '6', '-', '1', '2', '3', '+', '.', '0', '=']
+
 function App() {
+
+  const onDigit = () => {
+
+  }
+
+  const onDecimal = () => {
+
+  }
+
+  const onOperator = () => {
+   
+  }
+  
+  const onChangeSymb = () => {
+
+  }
+
+  const onClear = () => {
+
+  }
+
+  const onEqual = () => {
+   
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Container>
+        <Display result='4' formula='2+2'/>
+        <ButtonContainer>
+          {BUTTONS.map((btn, i) => { 
+            return (
+              <Button 
+              key={i}
+              onClick={
+                btn === 'C'
+                ? onClear
+                : btn === "."
+                ? onDecimal
+                : btn === '+/-'
+                ? onChangeSymb
+                : btn === '/' || btn === 'x' || btn === '-' || btn === '+'
+                ? onOperator
+                : btn === '='
+                ? onEqual
+                : onDigit
+              }
+              value={btn}>{btn}
+              </Button>
+          )})}
+        </ButtonContainer>
+      </Container>
     </div>
   );
 }
 
 export default App;
+
