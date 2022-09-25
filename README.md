@@ -1,5 +1,3 @@
-# Prueba técnica INNOCV
-
 ## React calculator
 
 Using the React framework, build a functioning calculator with a nice UI using only HTML, CSS or a style preprocessor and JavaScript (or typescript). It does not need to handle all types of errors, but there should be some basic error reporting.
